@@ -1,19 +1,37 @@
 <p id="notice"><%= notice %></p>
+<h1>TASK ID:<%= @task.id %></h1>
+<table>
+  <thead>
+    <tr>
+      <th>Title:</th>
+      <th>description:</th>
+      <th>Status:</th>
+      <th colspan="3"></th>
+    </tr>
+    <tr>
+      <td><%= @task.title %></td>
+      <td><%= @task.description %></td>
+      <td><%= @task.status %></td>
+      <td><%= link_to 'Add Subtasks', new_task_subtask_path(@task) %></td>
+    </tr>
+  </thead>
+  <tbody>
+    <% @task.subtasks.each do |sub| %>
+      <tr>
+        <td><%= sub.title %></td>
+        <td><%= sub.description %></td>
+        <td><%= sub.status %></td>
+        <td><%= link_to 'Edit', edit_task_subtask_path(@task.id,sub.id) %></td>
+        <td><%= link_to 'Destroy', [@task, sub], method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
 
-<p>
-  <strong>Title:</strong>
-  <%= @task.title %>
-</p>
 
-<p>
-  <strong>Decription:</strong>
-  <%= @task.decription %>
-</p>
 
-<p>
-  <strong>Status:</strong>
-  <%= @task.status %>
-</p>
+
+
 
 <%= link_to 'Edit', edit_task_path(@task) %> |
 <%= link_to 'Back', tasks_path %>
